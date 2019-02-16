@@ -5,7 +5,9 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: backup-storage
   resources:
     requests:
-      storage: 5Gi
+      storage: 10Gi
+  selector:
+    matchLabels:
+      disk: pg-backup-pv

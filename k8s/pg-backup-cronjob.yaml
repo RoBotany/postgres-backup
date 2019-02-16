@@ -1,9 +1,9 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: batch-every-twelve-hours
+  name: pg-backup-cronjob
 spec:
-  schedule: "0 */12 * * *"
+  schedule: "0 0 * * *"
   jobTemplate:
     spec:
       template:
@@ -11,7 +11,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: pgsql-backup
-            image: rinormaloku/postgres-back-up
+            image: ericbarch/postgres-backup
             env:
             - name: PGHOST
               value: "PGHOST_PLACEHOLDER"
