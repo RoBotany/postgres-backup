@@ -2,7 +2,7 @@ FROM alpine:3.9
 
 ENV PGHOST='localhost:5432'
 ENV PGDATABASE='postgres'
-ENV PGUSER='postgres@postgres'
+ENV PGUSER='postgres'
 ENV PGPASSWORD='password'
 
 RUN apk update
