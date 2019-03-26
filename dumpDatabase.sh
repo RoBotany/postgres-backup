@@ -1,4 +1,10 @@
 DUMP_FILE_NAME="pg_backup_`date +%Y-%m-%d-%H-%M`.dump"
+
+# If product prefix is passed, use it to name dump file
+if [ ! -z "$1" ]; then
+  DUMP_FILE_NAME="$1_$DUMP_FILE_NAME"
+fi
+
 echo "Creating dump: $DUMP_FILE_NAME"
 
 cd pg_backup
