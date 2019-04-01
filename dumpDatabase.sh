@@ -9,7 +9,13 @@ echo "Creating dump: $DUMP_FILE_NAME"
 
 cd pg_backup
 
-pg_dump -C -w --format=c --blobs > $DUMP_FILE_NAME
+# If POSTGRES_CONNECTION_URI is set, use it; otherwise pg_dump will use PGHOST, PGDATABASE, PGUSER etc.
+# https://stackoverflow.com/questions/29039437/how-to-use-pg-dump-with-a-connection-uri-url
+if [ ! -z "${POSTGRES_CONNECTION_URI}" ]; then
+  pg_dump -C -w --format=c --blobs $POSTGRES_CONNECTION_URI > $DUMP_FILE_NAME
+else
+  pg_dump -C -w --format=c --blobs > $DUMP_FILE_NAME
+fi
 
 if [ $? -ne 0 ]; then
   rm $DUMP_FILE_NAME
