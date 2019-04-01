@@ -11,4 +11,10 @@ Intended to be used with:
 3. Your computer! It's smaller than pgAdmin.
 
 ## Running manually on your computer
-`docker run -v /host/backup_dir:/pg_backup ericbarch/postgres-backup`
+* Use `PGHOST`, `PGUSER` and `PGDATABASE` environment variables (see Dockerfile for defaults) for `pg_dump` invocation:
+
+	`docker run -v /host/backup_dir:/pg_backup robotany/postgres-backup`
+	
+* Explicitly specify `POSTGRES_CONNECTION_URI` for `pg_dump` invocation:
+
+	`docker run -e POSTGRES_CONNECTION_URI=postgres://username@server:password@hostname:5432/database -v /host/backup_dir:/pg_backup robotany/postgres-backup`
