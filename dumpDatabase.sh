@@ -13,7 +13,8 @@ if [ ! -z "${USE_SSL}" ] && [ "${USE_SSL}" == "true" ]; then
   export PGSSLMODE="require"
 fi
 
-pg_dump -C -w --format=c --blobs > $DUMP_FILE_NAME
+# pg_dump should use value of PGPASSWORD for
+pg_dump -C -w --format=c --blobs --username=$PGUSER --host=$PGHOST --port=$PGPORT --dbname=$PGDATABASE > $DUMP_FILE_NAME
 
 if [ $? -ne 0 ]; then
   rm $DUMP_FILE_NAME
