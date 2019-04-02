@@ -9,6 +9,10 @@ echo "Creating dump: $DUMP_FILE_NAME"
 
 cd pg_backup
 
+if [ ! -z "${USE_SSL}" ] && [ "${USE_SSL}" == "true" ]; then
+  export PGSSLMODE="require"
+fi
+
 pg_dump -C -w --format=c --blobs > $DUMP_FILE_NAME
 
 if [ $? -ne 0 ]; then
