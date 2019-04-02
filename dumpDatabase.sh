@@ -9,11 +9,6 @@ echo "Creating dump: $DUMP_FILE_NAME"
 
 cd pg_backup
 
-if [ ! -z "${USE_SSL}" ] && [ "${USE_SSL}" == "true" ]; then
-  echo "Setting PGSSLMODE=require"
-  export PGSSLMODE="require"
-fi
-
 # If POSTGRES_CONNECTION_URI is set, extract PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE from it
 #
 # We expect POSTGRES_CONNECTION_URI in the following format:
