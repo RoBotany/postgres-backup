@@ -3,11 +3,18 @@ DUMP_FILE_NAME="pg_backup_`date +%Y-%m-%d-%H-%M`.dump"
 # If product prefix is passed, use it to name dump file
 if [ ! -z "$1" ]; then
   DUMP_FILE_NAME="$1_$DUMP_FILE_NAME"
+
+  # Purge SPECIFIC backups older than PURGE_AFTER_DAYS if specified
+  if [ ! -z "${PURGE_AFTER_DAYS}"]; then
+    echo "Deleting PostgreSQL backups for ${$1} older than ${PURGE_AFTER_DAYS} days"
+    NAME_MATCH="${$1}_pg_backup_*.dump"
+    find /pg_backup -name $NAME_MATCH -mtime +${PURGE_AFTER_DAYS} -exec rm {} \;
+  fi
 fi
 
-echo "Creating dump: $DUMP_FILE_NAME"
-
 cd pg_backup
+
+echo "Creating dump: $DUMP_FILE_NAME"
 
 # If POSTGRES_CONNECTION_URI is set, extract PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE from it
 #
