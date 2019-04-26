@@ -6,13 +6,13 @@ if [ ! -z "$1" ]; then
 
   # Purge SPECIFIC backups older than PURGE_AFTER_DAYS if specified
   if [ ! -z "${PURGE_AFTER_DAYS}" ]; then
-    echo "Deleting PostgreSQL backups for ${$1} older than ${PURGE_AFTER_DAYS} days"
-    NAME_MATCH="${$1}_pg_backup_*.dump"
+    echo "Deleting PostgreSQL backups for ${1} older than ${PURGE_AFTER_DAYS} days"
+    NAME_MATCH="${1}_pg_backup_*.dump"
     find /pg_backup -name $NAME_MATCH -mtime +${PURGE_AFTER_DAYS} -exec rm {} \;
   fi
 fi
 
-cd pg_backup
+cd pg_backup | exit
 
 echo "Creating dump: $DUMP_FILE_NAME"
 
