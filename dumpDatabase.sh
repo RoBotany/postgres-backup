@@ -12,7 +12,7 @@ if [ ! -z "$1" ]; then
   fi
 fi
 
-cd pg_backup | exit
+cd pg_backup
 
 echo "Creating dump: $DUMP_FILE_NAME"
 
